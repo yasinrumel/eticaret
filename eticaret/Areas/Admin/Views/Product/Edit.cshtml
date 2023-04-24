@@ -1,0 +1,74 @@
+﻿@model eticaret.Models.Product
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="row">
+    <div class="col-md-4">
+
+    </div>
+    <div class="col-md-4">
+        <h4 class="text-success">Ürün Düzenleme Sayfası</h4>
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden"asp-for="Id"/>
+            <div class="form-group">
+                Başlık
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                Açıklama
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                Fiyat
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                Resim
+                <input asp-for="image" class="form-control" type="hidden" />
+                <input asp-for="image" class="form-control" type="file" /> <!--typle=file yazdık resim eklemek için-->
+                <span asp-validation-for="image" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsHome" /> Anasayfa
+                </label>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsStock" /> Stok
+                </label>
+            </div>
+            <div class="form-group">
+                Kategori
+                <select asp-for="CategoryId" class ="form-control" asp-items="ViewBag.CategoryId"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Düzenle" class="btn btn-succes" />
+                <a asp-action="Index" class="btn btn-primary">Kayıt Listesi</a>
+            </div>
+        </form>
+        <div class="col-md-4">
+            @if (Model.image == null)
+                        {
+                            <img src="https://yumed.org.tr/tema/genel/uploads/ekibimiz/gorsel_1_1.png" width="150" height="100">
+                        }
+                        else
+                        {
+                            <img src="@Model.image" width="150" height="100">
+                        }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
